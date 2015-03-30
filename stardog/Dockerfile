@@ -8,6 +8,8 @@ RUN apt-get update && \
 
 RUN apt-get install -y -q openjdk-7-jdk wget curl nano
 
+RUN apt-get update
+
 RUN 	apt-get install -y -q openssh-server && \
 	mkdir /var/run/sshd && \
 	echo "root:root" | chpasswd && \
