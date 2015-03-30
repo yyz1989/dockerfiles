@@ -24,7 +24,7 @@ RUN apt-get install -y -q unzip && \
 
 COPY stardog-license-key.bin /stardog/
 
-COPY start.sh /
+COPY start.sh /stardog/
 
 EXPOSE 5820 22
 
