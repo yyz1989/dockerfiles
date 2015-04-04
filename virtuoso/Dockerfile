@@ -6,7 +6,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && \
 	apt-get upgrade -y 
 
-RUN apt-get install -y -q gcc gmake autoconf automake libtool flex bison gperf gawk m4 make openssl-devel readline-devel tar wget curl nano
+RUN apt-get install -y -q gcc autoconf automake libtool flex bison gperf gawk m4 make libssl-dev libreadline6 libreadline6-dev tar wget curl nano
 
 RUN apt-get install -y -q openssh-server && \
 	mkdir /var/run/sshd && \
