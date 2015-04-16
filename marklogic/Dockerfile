@@ -21,6 +21,6 @@ RUN dpkg -i /marklogic_8.0-2_amd64.deb
 
 COPY start.sh /
 
-EXPOSE 8001 22
+EXPOSE 8000 8001 8002 22
 
 CMD ["/bin/bash", "start.sh"]
