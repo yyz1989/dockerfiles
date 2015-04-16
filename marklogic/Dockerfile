@@ -17,9 +17,9 @@ RUN apt-get install -y -q openssh-server && \
 
 COPY marklogic_8.0-2_amd64.deb /
 
-COPY start.sh /
-
 RUN dpkg -i /marklogic_8.0-2_amd64.deb
+
+COPY start.sh /
 
 EXPOSE 8001 22
 
