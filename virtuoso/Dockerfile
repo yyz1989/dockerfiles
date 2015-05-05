@@ -38,4 +38,6 @@ WORKDIR /var/lib/virtuoso/db
 
 EXPOSE 8890 1111 22
 
+VOLUME /usr/local/virtuoso-opensource/var/lib/virtuoso/db
+
 CMD ["/bin/bash", "/start.sh"]
