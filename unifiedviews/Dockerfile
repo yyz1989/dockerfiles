@@ -7,6 +7,8 @@ ENV PGPASSWORD unifiedviews
 ENV VIRTUOSO_USER dba
 ENV VIRTUOSO_PASSWORD dba
 
+RUN sed -i "s/101/0/" /usr/sbin/policy-rc.d
+
 RUN apt-get update && \
 	apt-get upgrade -y && \
     apt-get update
@@ -32,26 +34,20 @@ RUN wget https://github.com/UnifiedViews/Core/archive/UV_Core_v2.1.1.tar.gz && \
     cd /unifiedviews/core && \
     mvn clean install
 
-WORKDIR /unifiedviews/core/db/postgresql
+RUN mkdir /var/log/unifiedviews && mkdir /unifiedviews/config
 
-RUN psql -h ${POSTGRES_PORT_5432_TCP_ADDR} -p ${POSTGRES_PORT_5432_TCP_PORT} -c "create database unifiedviews;"
-    psql -h ${POSTGRES_PORT_5432_TCP_ADDR} -p ${POSTGRES_PORT_5432_TCP_PORT} -d unifiedviews -f schema.sql && \
-    psql -h ${POSTGRES_PORT_5432_TCP_ADDR} -p ${POSTGRES_PORT_5432_TCP_PORT} -d unifiedviews -f data-core.sql && \
-    psql -h ${POSTGRES_PORT_5432_TCP_ADDR} -p ${POSTGRES_PORT_5432_TCP_PORT} -d unifiedviews -f data-permissions.sql
+COPY backend.config.properties /unifiedviews/config/
 
-RUN mkdir /var/log/unifiedviews
-
-COPY backend.config.properties /unifiedviews/core/backend/target/config.properties
-
-RUN cp /unifiedviews/core/frontend/target/unifiedviews.war /var/lib/tomcat7/webapps/ && \
-    service tomcat7 restart
+COPY frontend.config.properties /unifiedviews/config/
 
 COPY frontend.config.properties /var/lib/tomcat7/webapps/unifiedviews/WEB-INF/config.properties
 
-EXPOSE 5010 8080 22
+COPY init.sh /etc/init.d/
 
 COPY start.sh /unifiedviews/
 
 WORKDIR /unifiedviews
+
+EXPOSE 5010 8080 22
 
 CMD ["/bin/bash", "start.sh"]
