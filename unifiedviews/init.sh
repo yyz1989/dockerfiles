@@ -1,5 +1,13 @@
 #!/bin/bash
-# Initialize unifiedviews backend and frontend
+### BEGIN INIT INFO
+# Provides:          init.sh
+# Required-Start:    $local_fs $remote_fs $network $syslog
+# Required-Stop:     $local_fs $remote_fs $network $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Initialize unifiedviews
+# Description:       Initialize unifiedviews backend and frontend, run only once
+### END INIT INFO
 
 if [ ! -f /unifiedviews/core/backend/target/config.properties ]; then
     cp /unifiedviews/config/backend.config.properties /unifiedviews/core/backend/target/config.properties
