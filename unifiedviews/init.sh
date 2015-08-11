@@ -1,4 +1,5 @@
 #!/bin/bash
+# Initialize unifiedviews backend and frontend
 
 if [ ! -f /unifiedviews/core/backend/target/config.properties ]; then
     cp /unifiedviews/config/backend.config.properties /unifiedviews/core/backend/target/config.properties
@@ -11,5 +12,6 @@ if [ ! -f /unifiedviews/core/backend/target/config.properties ]; then
     service tomcat7 restart
     service tomcat7 stop
     cp /unifiedviews/config/frontend.config.properties /var/lib/tomcat7/webapps/unifiedviews/WEB-INF/config.properties    
-    exit 0
 fi  
+
+exit 0

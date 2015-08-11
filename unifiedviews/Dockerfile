@@ -7,8 +7,6 @@ ENV PGPASSWORD unifiedviews
 ENV VIRTUOSO_USER dba
 ENV VIRTUOSO_PASSWORD dba
 
-RUN sed -i "s/101/0/" /usr/sbin/policy-rc.d
-
 RUN apt-get update && \
 	apt-get upgrade -y && \
     apt-get update
@@ -43,6 +41,8 @@ COPY frontend.config.properties /unifiedviews/config/
 COPY frontend.config.properties /var/lib/tomcat7/webapps/unifiedviews/WEB-INF/config.properties
 
 COPY init.sh /etc/init.d/
+
+RUN chmod 755 /etc/init.d/init.sh && update-rc.d /etc/init.d/init.sh defaults 91 09
 
 COPY start.sh /unifiedviews/
 
