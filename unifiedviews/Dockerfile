@@ -38,11 +38,9 @@ COPY backend.config.properties /unifiedviews/config/
 
 COPY frontend.config.properties /unifiedviews/config/
 
-COPY frontend.config.properties /var/lib/tomcat7/webapps/unifiedviews/WEB-INF/config.properties
-
 COPY init.sh /etc/init.d/
 
-RUN chmod 755 /etc/init.d/init.sh && update-rc.d init.sh defaults 91 09
+RUN chmod 755 /etc/init.d/init.sh
 
 COPY start.sh /unifiedviews/
 
