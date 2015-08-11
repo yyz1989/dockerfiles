@@ -15,7 +15,8 @@ RUN apt-get install -y -q openssh-server && \
 	echo "root:root" | chpasswd && \
 	sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 
-RUN wget https://github.com/openlink/virtuoso-opensource/releases/download/v7.2.0.1/virtuoso-opensource-7.2.0_p1.tar.gz
+# RUN wget --quota=1 https://github.com/openlink/virtuoso-opensource/releases/download/v7.2.1/virtuoso-opensource-7.2.1.tar.gz
+COPY virtuoso-opensource-7.2.1.tar.gz /
 
 RUN tar xzf virtuoso*.gz && \
 	mv virtuoso*/ virtuoso
@@ -24,9 +25,9 @@ WORKDIR /virtuoso
 
 RUN ./configure --with-readline 
 
-RUN nice make
+RUN make
 
-RUN nice make install
+RUN make install
 
 RUN ln -s /usr/local/virtuoso-opensource/var/lib/virtuoso/ /var/lib/virtuoso
 
