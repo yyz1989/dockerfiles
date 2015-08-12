@@ -43,9 +43,16 @@ COPY init.sh /etc/init.d/
 
 RUN chmod 755 /etc/init.d/init.sh && chmod 777 /var/log/unifiedviews
 
+COPY setenv.sh /usr/share/tomcat7/bin/
+
+RUN chmod 755 /usr/share/tomcat7/bin/setenv.sh && chown tomcat7:tomcat7 /usr/share/tomcat7/bin/setenv.sh
+
 WORKDIR /unifiedviews
 
-COPY start.sh .
+COPY start.sh ./
+
+ENV MASTER_API_USER unifiedviews
+ENV MASTER_API_PASSWORD unifiedviews
 
 EXPOSE 5010 8080 22
 
