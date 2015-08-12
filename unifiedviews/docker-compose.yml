@@ -1,0 +1,23 @@
+postgres:
+  image: postgres:latest
+  expose: 5432
+  environment:
+    - POSTGRES_PASSWORD=unifiedviews
+
+virtuoso:
+  image: proxml/virtuoso:7.2.1
+  expose:
+    - "22"
+    - "8890"
+    - "1111"
+
+unifiedviews:
+  image: swc/unifiedviews:2.1.1
+  ports:
+    - "8080:8080"
+  expose:
+    - "22"
+    - "5010"
+  links:
+    - postgres:postgres
+    - virtuoso:virtuoso

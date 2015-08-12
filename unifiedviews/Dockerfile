@@ -51,6 +51,8 @@ WORKDIR /unifiedviews
 
 COPY start.sh ./
 
+RUN chmod 755 start.sh
+
 ENV MASTER_API_USER unifiedviews
 ENV MASTER_API_PASSWORD unifiedviews
 
