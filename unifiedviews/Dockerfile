@@ -39,9 +39,11 @@ RUN wget https://github.com/UnifiedViews/Core/archive/UV_Core_v2.1.1.tar.gz && \
     cd /unifiedviews/core && \
     mvn clean install
 
-COPY init.sh /etc/init.d/
-
-RUN chmod 755 /etc/init.d/init.sh && chmod 777 /var/log/unifiedviews
+RUN wget https://github.com/UnifiedViews/Plugins/archive/UV_Plugins_v2.1.1.tar.gz && \
+    tar zxf UV_Plugins*.tar.gz && \
+    mv Plugins-UV*/ unifiedviews/plugins && \
+    cd /unifiedviews/plugins && \
+    mvn clean install
 
 COPY setenv.sh /usr/share/tomcat7/bin/
 
@@ -49,9 +51,15 @@ RUN chmod 755 /usr/share/tomcat7/bin/setenv.sh && chown tomcat7:tomcat7 /usr/sha
 
 WORKDIR /unifiedviews
 
+COPY init.sh ./
+
+COPY dpu.sh ./
+
 COPY start.sh ./
 
-RUN chmod 755 start.sh
+RUN chmod 755 start.sh init.sh dpu.sh 
+
+RUN chmod 777 /var/log/unifiedviews
 
 ENV MASTER_API_USER unifiedviews
 ENV MASTER_API_PASSWORD unifiedviews

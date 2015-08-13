@@ -17,6 +17,7 @@ if [ ! -f /unifiedviews/core/backend/target/config.properties ]; then
     psql -h ${POSTGRES_PORT_5432_TCP_ADDR} -p ${POSTGRES_PORT_5432_TCP_PORT} -d unifiedviews -f data-core.sql
     psql -h ${POSTGRES_PORT_5432_TCP_ADDR} -p ${POSTGRES_PORT_5432_TCP_PORT} -d unifiedviews -f data-permissions.sql
     cp /unifiedviews/core/frontend/target/unifiedviews.war /var/lib/tomcat7/webapps/
+    cp /unifiedviews/core/master/target/master.war /var/lib/tomcat7/webapps/
     cd /unifiedviews/config
     sed -i "s#\${POSTGRES_PORT_5432_TCP_ADDR}#${POSTGRES_PORT_5432_TCP_ADDR}#g" frontend.config.properties
     sed -i "s#\${POSTGRES_PORT_5432_TCP_PORT}#${POSTGRES_PORT_5432_TCP_PORT}#g" frontend.config.properties
