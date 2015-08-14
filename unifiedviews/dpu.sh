@@ -19,7 +19,6 @@ install_dpu() {
     echo $outcontents
 }
 
-
 if [ "$(ls -A /unifiedviews/target/dpu)" ]; then
     exit 0
 else
@@ -30,14 +29,21 @@ else
     echo "Waiting for Web service to be set online"
 
     i=0
-    until $(curl --output /dev/null --silent --head --fail --user $MASTER_API_USER:$MASTER_API_PASSWORD ${URL}/pipelines) || [ "$i" -gt 36 ]; do
+    until $(curl --output /dev/null --silent --head --fail --user $MASTER_API_USER:$MASTER_API_PASSWORD ${URL}/pipelines) || [ "$i" -gt 60 ]; do
         i=$((i+1))
-        printf '.'
+        echo "."
         sleep 5
     done
 
-    for f in /unifiedviews/plugins/*/target/*.jar; do 
-        install_dpu "$f"; 
-    done
+    if [ "$i" -gt 60 ]; then
+        echo "---------------------------------------------------------------------"
+        echo "DPU installation failed, server does not respond in time
+        echo "---------------------------------------------------------------------"
+        exit 1
+    else
+        for f in /unifiedviews/plugins/*/target/*.jar; do 
+            install_dpu "$f"; 
+        done
+    fi
 fi  
-
+exit 0

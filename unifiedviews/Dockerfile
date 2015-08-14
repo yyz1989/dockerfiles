@@ -35,7 +35,6 @@ RUN wget https://github.com/UnifiedViews/Plugin-DevEnv/archive/UV_Plugin-DevEnv_
 RUN wget https://github.com/UnifiedViews/Core/archive/UV_Core_v2.1.1.tar.gz && \
     tar zxf UV_Core*.tar.gz && \
     mv Core-UV*/ unifiedviews/core && \
-    cp /unifiedviews/config/frontend.config.properties /unifiedviews/core/frontend/src/main/webapp/WEB-INF/config.properties && \ 
     cd /unifiedviews/core && \
     mvn clean install
 
