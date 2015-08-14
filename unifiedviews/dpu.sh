@@ -42,6 +42,9 @@ else
         for f in /unifiedviews/plugins/*/target/*.jar; do 
             install_dpu "$f"; 
         done
+	echo "---------------------------------------------------------------------"
+        echo "DPU installation completed"
+        echo "---------------------------------------------------------------------"
     fi
 fi  
 exit 0

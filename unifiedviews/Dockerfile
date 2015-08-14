@@ -60,6 +60,8 @@ RUN chmod 755 start.sh init.sh dpu.sh
 
 RUN chmod 777 /var/log/unifiedviews
 
+RUN mkdir target && ln -s /unifiedviews/core/backend/target/lib /unifiedviews/target/lib
+
 ENV MASTER_API_USER unifiedviews
 ENV MASTER_API_PASSWORD unifiedviews
 
