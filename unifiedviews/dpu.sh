@@ -1,6 +1,4 @@
 #!/bin/bash
-# Many thanks to Tenforce for the following DPU installation scripts
-#
 
 URL="http://localhost:8080/master/api/1"
 
@@ -37,7 +35,7 @@ else
 
     if [ "$i" -gt 60 ]; then
         echo "---------------------------------------------------------------------"
-        echo "DPU installation failed, server does not respond in time
+        echo "DPU installation failed, server does not respond in time"
         echo "---------------------------------------------------------------------"
         exit 1
     else
