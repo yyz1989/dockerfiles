@@ -6,7 +6,7 @@ install_dpu() {
     dpu_file=$(ls $1)
 
     echo -n "..installing $dpu_file: "
-    outputfile="/var/log/unifiedviews/dpu_out.out"
+    outputfile="/tmp/dpu_out.out"
 
     # fire cURL and wait until it finishes
     curl --user $MASTER_API_USER:$MASTER_API_PASSWORD --fail --silent --output $outputfile -X POST -H "Cache-Control: no-cache" -H "Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW" -F file=@$dpu_file ${URL}/import/dpu/jar?force=true 
@@ -27,15 +27,15 @@ else
     echo "Waiting for Web service to be set online"
 
     i=0
-    until $(curl --output /dev/null --silent --head --fail --user $MASTER_API_USER:$MASTER_API_PASSWORD ${URL}/pipelines) || [ "$i" -gt 60 ]; do
+    until $(curl --output /tmp/dpu_out.out --silent --head --fail --user $MASTER_API_USER:$MASTER_API_PASSWORD ${URL}/pipelines) || [ "$i" -gt 5 ]; do
         i=$((i+1))
         echo "."
         sleep 5
     done
 
-    if [ "$i" -gt 60 ]; then
+    if [ "$i" -gt 5 ]; then
         echo "---------------------------------------------------------------------"
-        echo "DPU installation failed, server does not respond in time"
+        echo "DPU installation failed, server does not respond in 5 trials"
         echo "---------------------------------------------------------------------"
         exit 1
     else
